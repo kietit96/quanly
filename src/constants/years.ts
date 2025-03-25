@@ -1,6 +1,6 @@
 import { TMonthYear } from "@/types";
 
-export const years: TMonthYear[] = [
+const years: TMonthYear[] = [
     { value: 2022, label: '2022' },
     { value: 2023, label: '2023' },
     { value: 2024, label: '2024' },
@@ -21,3 +21,4 @@ export const years: TMonthYear[] = [
     { value: 2039, label: '2039' },
     { value: 2040, label: '2040' },
 ]
+export default years

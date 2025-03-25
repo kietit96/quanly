@@ -4,10 +4,12 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { public_link } from './router'
 import Header from '@/layouts/Header'
 import Footer from '@/layouts/Footer'
+import { Provider } from 'react-redux'
+import store from '@/store/redux/store'
 const Drawer = createDrawerNavigator()
 export default function AppNavigator() {
     return (
-        <>
+        <Provider store={store}>
             <NavigationContainer>
                 <Drawer.Navigator initialRouteName="Home">
                     {public_link.map((item, index) => {
@@ -15,10 +17,9 @@ export default function AppNavigator() {
                             header: () => <Header />
                         }} />
                     })}
-
                 </Drawer.Navigator>
                 <Footer />
             </NavigationContainer>
-        </>
+        </Provider>
     )
 }

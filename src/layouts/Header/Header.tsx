@@ -1,5 +1,5 @@
 import { ThemeHeader } from '@/wrapper/WrapperHeader';
-import SelectDate from '@comp/SelectDate';
+import SelectDate from '@/layouts/SelectDate';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
