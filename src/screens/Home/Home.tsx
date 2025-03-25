@@ -1,14 +1,10 @@
+import { useStateDate } from '@/hooks/useStateDate'
 import { View, Text } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-
 export default function Home() {
-  const date = useSelector((state: { date: { date: number } }) => state.date.date)
-  const dateState = new Date(date)
-
+  const stateDate = new Date(useStateDate())
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>{dateState.toLocaleDateString()}</Text>
+      <Text>{stateDate.toDateString()}</Text>
     </View>
   )
 }

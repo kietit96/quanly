@@ -6,10 +6,12 @@ import Header from '@/layouts/Header'
 import Footer from '@/layouts/Footer'
 import { Provider } from 'react-redux'
 import store from '@/store/redux/store'
+import GlobalStateDate from '@/global/GlobalStateDate'
 const Drawer = createDrawerNavigator()
 export default function AppNavigator() {
     return (
         <Provider store={store}>
+            <GlobalStateDate/>
             <NavigationContainer>
                 <Drawer.Navigator initialRouteName="Home">
                     {public_link.map((item, index) => {
