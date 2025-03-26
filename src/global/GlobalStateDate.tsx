@@ -1,17 +1,16 @@
-import { useStateDate } from "@/hooks/useStateDate"
+import useStateDate from "@/hooks/useStateDate"
 import { setDate } from "@/store/redux/ReduxDate/slice"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
 
 export default function GlobalStateDate() {
-    const stateDate = new Date(useStateDate())
-    const dispatch = useDispatch()
+    const [stateTimeDate, dispatch] = useStateDate<number>()
+    const stateDate = new Date(stateTimeDate)
     useEffect(() => {
         async function initializeDate() {
             try {
                 const storedDate = await AsyncStorage.getItem("date");
-                if (storedDate) {
+                if (storedDate && storedDate !== 'NaN') {
                     const savedTimestamp = parseInt(storedDate, 10);
                     dispatch(setDate(savedTimestamp))
                 } else {

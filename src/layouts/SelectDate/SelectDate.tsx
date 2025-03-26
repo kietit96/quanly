@@ -1,16 +1,15 @@
 import months from '@/constants/months';
 import years from '@/constants/years';
-import { useStateDate } from '@/hooks/useStateDate';
-import { nextMonth, prevMonth, setDate, setMonth, setYear } from '@/store/redux/ReduxDate/slice';
+import useStateDate from '@/hooks/useStateDate';
+import { nextMonth, prevMonth, setMonth, setYear } from '@/store/redux/ReduxDate/slice';
 import ButtonArrow from '@comp/Buttons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Picker } from '@react-native-picker/picker';
 import { StyleSheet, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
 
 export default function SelectDate() {
-    const dateState = new Date(useStateDate())
-    const dispatch = useDispatch()
+    const [dateTimeState, dispatch] = useStateDate<number>()
+    const dateState = new Date(dateTimeState)
     const setPreviousDate = () => {
         dispatch(prevMonth())
     }
@@ -25,27 +24,22 @@ export default function SelectDate() {
     }
 
     return (
-        <View style={{ padding: 10, flexDirection: 'column' }}>
-            <View style={styles.navigateDate}>
-                <View style={styles.button}>
-                    <ButtonArrow onPress={setPreviousDate}>
-                        <AntDesign name="caretleft" size={24} />
-                    </ButtonArrow>
-                </View>
-                <Picker style={styles.input} onValueChange={setChangeMonth} selectedValue={dateState.getMonth()}>
-                    {months.map(m => <Picker.Item key={m.value} label={m.label} value={m.value} />)}
-                </Picker>
-                <Picker style={styles.input} onValueChange={setChangeYear} selectedValue={dateState.getFullYear()}>
-                    {years.map(y => <Picker.Item key={y.value} label={y.label} value={y.value} />)}
-                </Picker>
-                <View style={styles.button}>
-                    <ButtonArrow onPress={setNextDate}>
-                        <AntDesign name="caretright" size={24} />
-                    </ButtonArrow>
-                </View>
+        <View style={styles.navigateDate}>
+            <View style={styles.button}>
+                <ButtonArrow onPress={setPreviousDate}>
+                    <AntDesign name="caretleft" size={24} />
+                </ButtonArrow>
             </View>
-            <View>
-                <Text>{dateState.toLocaleDateString()} {dateState.getMonth()}</Text>
+            <Picker style={styles.input} onValueChange={setChangeMonth} selectedValue={dateState.getMonth()}>
+                {months.map(m => <Picker.Item key={m.value} label={m.label} value={m.value} />)}
+            </Picker>
+            <Picker style={styles.input} onValueChange={setChangeYear} selectedValue={dateState.getFullYear()}>
+                {years.map(y => <Picker.Item key={y.value} label={y.label} value={y.value} />)}
+            </Picker>
+            <View style={styles.button}>
+                <ButtonArrow onPress={setNextDate}>
+                    <AntDesign name="caretright" size={24} />
+                </ButtonArrow>
             </View>
         </View>
     )
