@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   TitleHeader: {
-    marginBottom: 15,
+    marginBottom: 10,
   },
   features: {
     flexDirection: 'row',
