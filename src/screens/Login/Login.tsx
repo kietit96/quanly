@@ -1,18 +1,41 @@
 import Color from '@/constants/color'
 import InputPassword from '@comp/TextInput/InputPassword'
-import React, { useState } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import React from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import * as yup from 'yup'
 import Content from './Content'
+import { LoginAuth } from '@/services/auth'
+import { catchMessageError } from '@/catchError'
+
+interface Iinputform {
+  username: string
+  password: string
+}
 
 export default function Login() {
-  const [userName, setUserName] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const handleChangeUseName = (text: string) => {
-    setUserName(text)
-  }
-  const handleChangePassword = (text: string) => {
-    setPassword(text)
+  const schema = yup.object().shape({
+    username: yup.string().required('Tên đăng nhập không được để trống'),
+    password: yup.string().required('Mật khẩu không được để trống')
+  }).required()
+  const { handleSubmit, control, formState: { errors } } = useForm<Iinputform>({
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+    resolver: yupResolver(schema),
+  })
+  const onSubmit = async (data: Iinputform) => {
+    try {
+      const result = await LoginAuth(data.username, data.password)
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+      const message = catchMessageError(error)
+      alert(message)
+    }
   }
   return (
     <View style={styles.backgroundLogin}>
@@ -20,9 +43,28 @@ export default function Login() {
         <View style={styles.container}>
           <View style={styles.loginForm}>
             <View style={{ gap: 15 }}>
-              <TextInput value={userName} onChangeText={handleChangeUseName} style={styles.inputForm} placeholder="Tên đăng nhập" placeholderTextColor='#a1a1a1' />
-              <InputPassword value={password} onChangeText={handleChangePassword} placeholder="Mật khẩu" style={styles.inputForm} />
-              <TouchableOpacity style={styles.buttonLogin} onPress={() => { }}>
+              <Controller
+                name="username"
+                control={control}
+                render={({ field: { onChange, value, onBlur } }) =>
+                  <TextInput
+                    style={styles.inputForm}
+                    placeholder="Tên đăng nhập"
+                    placeholderTextColor='#a1a1a1'
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                  />
+                }
+              />
+              {errors.username && <Text style={styles.errorText}>{errors.username.message}</Text>}
+              <InputPassword
+                name="password"
+                control={control}
+                style={styles.inputForm}
+                placeholder="Mật khẩu" />
+              {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
+              <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit(onSubmit)}>
                 <Text style={styles.buttonText}>Đăng nhập</Text>
               </TouchableOpacity>
             </View>
@@ -64,4 +106,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     textTransform: 'uppercase',
   },
+  errorText: {
+    color: '#FF0000',
+  }
 })
