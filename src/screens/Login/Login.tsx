@@ -1,4 +1,6 @@
+import { catchMessageError } from '@/catchError'
 import Color from '@/constants/color'
+import { LoginAuth } from '@/services/auth'
 import InputPassword from '@comp/TextInput/InputPassword'
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
@@ -7,8 +9,6 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, ViewStyle } from '
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as yup from 'yup'
 import Content from './Content'
-import { LoginAuth } from '@/services/auth'
-import { catchMessageError } from '@/catchError'
 
 interface Iinputform {
   username: string
@@ -28,14 +28,10 @@ export default function Login() {
     resolver: yupResolver(schema),
   })
   const onSubmit = async (data: Iinputform) => {
-    try {
-      const result = await LoginAuth(data.username, data.password)
-      console.log(result)
-    } catch (error) {
-      console.log(error)
-      const message = catchMessageError(error)
-      alert(message)
-    }
+    const { username, password } = data
+
+    const a = await LoginAuth(username, password)
+    console.log(a)
   }
   return (
     <View style={styles.backgroundLogin}>
