@@ -1,8 +1,15 @@
-import { HomeScreen } from "@/screens/Home"
-import { TinhLuongScreen } from "@/screens/TinhLuong"
-import WrapperDefault from "@/wrapper/WrapperDefault";
+import { HomeScreen } from "@/screens/Home";
+import { TinhLuongScreen } from "@/screens/TinhLuong";
+import { Tchildren } from "@/types";
+import WrapperDefault from "@comp/wrapper/WrapperDefault";
 
-const privateRoute = [
+type TprivateRoute = {
+    name: string;
+    component: React.FC;
+    layout: React.FC<Tchildren>;
+}
+
+const privateRoute: TprivateRoute[] = [
     { name: "Home", component: HomeScreen, layout: WrapperDefault },
     { name: "TinhLuong", component: TinhLuongScreen, layout: WrapperDefault }
 ]

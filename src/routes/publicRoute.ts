@@ -1,6 +1,13 @@
 import { Fragment } from "react";
 import Login from "@/screens/Login";
-const publicRouter = [
+import { Tchildren } from "@/types";
+type TpublicRouter = {
+    name: string;
+    component: React.FC;
+    layout: React.FC<Tchildren>;
+}
+
+const publicRouter: TpublicRouter[] = [
     { name: "Login", component: Login, layout: Fragment },
 ]
 

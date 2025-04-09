@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
     navigateDate: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingBottom: 10
     },
     monthyearInput: {
         flex: 2

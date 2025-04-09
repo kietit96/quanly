@@ -1,10 +1,14 @@
 import useStateDate from '@/hooks/useStateDate'
-import { View } from 'react-native'
+import useStateLocation from '@/hooks/useStateLocation'
+import { Text, View } from 'react-native'
+import All from './Layout/All'
 export default function Home() {
-  const [stateTimeDate, dispatch] = useStateDate<number>()
+  const [stateTimeDate, dispatchTimeDate] = useStateDate<number>()
+  const [location, dispatchLocation] = useStateLocation()
+  // console.log(location)
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-
+    <View>
+      {location.id === -1 ? <All /> : <Text>sss</Text>}
     </View>
   )
 }

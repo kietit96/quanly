@@ -7,15 +7,22 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, ViewStyle } from '
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as yup from 'yup'
 import Content from './Content'
-import { LoginAuth } from '@/services/auth'
-import { catchMessageError } from '@/catchError'
+import useStateUser from '@/hooks/useStateUser'
+import { loginAsync } from '@/store/redux/ReduxUser/createAsyncThunk'
+import { useNavigation } from '@react-navigation/native'
+import { RootDrawerParamList } from '@/types'
+import { DrawerNavigationProp } from '@react-navigation/drawer'
 
 interface Iinputform {
   username: string
   password: string
 }
 
+type TnavigationProps = DrawerNavigationProp<RootDrawerParamList, 'Home'>
+
 export default function Login() {
+  const navigator = useNavigation<TnavigationProps>()
+  const [user, dispatch] = useStateUser()
   const schema = yup.object().shape({
     username: yup.string().required('Tên đăng nhập không được để trống'),
     password: yup.string().required('Mật khẩu không được để trống')
@@ -28,13 +35,9 @@ export default function Login() {
     resolver: yupResolver(schema),
   })
   const onSubmit = async (data: Iinputform) => {
-    try {
-      const result = await LoginAuth(data.username, data.password)
-      console.log(result)
-    } catch (error) {
-      console.log(error)
-      const message = catchMessageError(error)
-      alert(message)
+    const result = await dispatch(loginAsync(data))
+    if (result.payload !== null) {
+      navigator.navigate('Home')
     }
   }
   return (

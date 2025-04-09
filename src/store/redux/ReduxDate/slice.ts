@@ -11,12 +11,12 @@ const dateSlice = createSlice({
     reducers: {
         prevMonth: (state) => {
             const newDate = new Date(state.date)
-            newDate.setMonth(newDate.getMonth() - 1)
+            newDate.getFullYear() === 2022 && newDate.getMonth() === 0 ? newDate.setMonth(0) : newDate.setMonth(newDate.getMonth() - 1)
             state.date = newDate.getTime()
         },
         nextMonth: (state) => {
             const newDate = new Date(state.date)
-            newDate.setMonth(newDate.getMonth() + 1)
+            newDate.getFullYear() === 2040 && newDate.getMonth() === 11 ? newDate.setMonth(11) : newDate.setMonth(newDate.getMonth() + 1)
             state.date = newDate.getTime()
         },
         setMonth: (state, action: { payload: number }) => {
