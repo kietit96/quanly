@@ -54,12 +54,12 @@ export default function SelectLocation() {
     )
 }
 function Button(props: propsButton) {
-    const { id, name, position, children, handlePress } = props
+    const { id, name, position, count_item, children, handlePress } = props
     const [location] = useStateLocation()
     const isSelected = location.id === id
     const handleChangeLocation = () => {
         if (!!handlePress) {
-            handlePress({ id, position, name })
+            handlePress({ id, position, name, count_item })
         }
     }
     return (
