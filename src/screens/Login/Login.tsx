@@ -1,18 +1,18 @@
 import Color from '@/constants/color'
+import useStateUser from '@/hooks/useStateUser'
 import { LoginAuth } from '@/services/auth'
+import { loginAsync } from '@/store/redux/ReduxUser/createAsyncThunk'
+import { RootDrawerParamList } from '@/types'
 import InputPassword from '@comp/TextInput/InputPassword'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { DrawerNavigationProp } from '@react-navigation/drawer'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as yup from 'yup'
 import Content from './Content'
-import { useNavigation } from '@react-navigation/native'
-import useStateUser from '@/hooks/useStateUser'
-import { DrawerNavigationProp } from '@react-navigation/drawer'
-import { RootDrawerParamList } from '@/types'
-import { loginAsync } from '@/store/redux/ReduxUser/createAsyncThunk'
 
 interface Iinputform {
   username: string
