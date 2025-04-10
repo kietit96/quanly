@@ -1,4 +1,5 @@
 import Color from '@/constants/color'
+import { LoginAuth } from '@/services/auth'
 import InputPassword from '@comp/TextInput/InputPassword'
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
@@ -7,11 +8,11 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, ViewStyle } from '
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as yup from 'yup'
 import Content from './Content'
-import useStateUser from '@/hooks/useStateUser'
-import { loginAsync } from '@/store/redux/ReduxUser/createAsyncThunk'
 import { useNavigation } from '@react-navigation/native'
-import { RootDrawerParamList } from '@/types'
+import useStateUser from '@/hooks/useStateUser'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
+import { RootDrawerParamList } from '@/types'
+import { loginAsync } from '@/store/redux/ReduxUser/createAsyncThunk'
 
 interface Iinputform {
   username: string
@@ -35,10 +36,10 @@ export default function Login() {
     resolver: yupResolver(schema),
   })
   const onSubmit = async (data: Iinputform) => {
-    const result = await dispatch(loginAsync(data))
-    if (result.payload !== null) {
-      navigator.navigate('Home')
-    }
+    const result = await LoginAuth(data.username, data.password)
+    if (result === null) return
+    const user: Iinputform = result.user
+    dispatch(loginAsync({ username: user.username, password: user.password }))
   }
   return (
     <View style={styles.backgroundLogin}>
