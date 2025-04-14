@@ -1,36 +1,39 @@
 import Color from "@/constants/color";
 import gradients, { Tcolors } from "@/constants/gradient";
 import useStateDate from "@/hooks/useStateDate";
+import useStateLocation from "@/hooks/useStateLocation";
 import { getListLocation } from "@/services/getListLocation";
-import { initialLocation, TitemLocation } from "@/store/reducer/reducerLocation/reducer";
+import { changeLocationAction } from "@/store/reducer/reducerLocation/action";
+import { TitemLocation } from "@/store/reducer/reducerLocation/reducer";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLayoutEffect, useState } from "react";
-import { ActivityIndicator, Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 export default function All() {
-    const [stateLocations, setStateLocations] = useState<TitemLocation[]>([initialLocation])
+    const [stateLocations, setStateLocations] = useState<TitemLocation[]>([])
     const [currentTimeDate, dispatch] = useStateDate<number>()
     const currentDate = new Date(currentTimeDate)
     const [isLoading, setLoading] = useState<boolean>(false)
+    const [location, dispatchLocation] = useStateLocation()
     useLayoutEffect(() => {
         setLoading(true)
         const loadLocations = async () => {
             const month = currentDate.getMonth() + 1
             const year = currentDate.getFullYear()
             const result = await getListLocation(month, year)
-            const locations: TitemLocation[] = result.data.map((item: any) => {
-                return {
-                    id: item.id,
-                    name: item.title,
-                    position: item.pos,
-                    count_item: item.countItem,
-
-                }
-            })
+            const locations: TitemLocation[] = result.data.filter((item: TitemLocation) => item.id !== -1).map((item: TitemLocation) => ({
+                id: item.id,
+                title: item.title,
+                position: item.position,
+                count_item: item.count_item,
+            }))
             setStateLocations(locations)
             setLoading(false)
         }
         loadLocations()
     }, [])
+    const handleChangeLocation = (location: TitemLocation) => {
+        dispatchLocation(changeLocationAction(location))
+    }
     return (
         isLoading
             ?
@@ -44,15 +47,15 @@ export default function All() {
                     numColumns={2}
                     data={stateLocations}
                     renderItem={({ item }) => {
-                        const count = item.count_item
-                        const styleCount = count < 10 ? 'targetLow' : (count >= 10 && count < 30 ? 'targetMedium' : 'targetHigh')
+                        const { id, title, position, count_item } = item
+                        const styleCount = count_item < 10 ? 'targetLow' : (count_item >= 10 && count_item < 30 ? 'targetMedium' : 'targetHigh')
                         const colors: Tcolors = gradients[styleCount].colors
                         return (
-                            <TouchableOpacity style={styles.button}>
+                            <TouchableOpacity onPress={() => handleChangeLocation({ id, title, position, count_item })} style={styles.button}>
                                 <LinearGradient style={styles.buttonBackground} colors={colors}>
                                     <View style={styles.foldCorner} />
-                                    <Text style={styles.count}>{item.count_item}</Text>
-                                    <Text style={styles.text}>{item.name}</Text>
+                                    <Text style={styles.count}>{count_item}</Text>
+                                    <Text style={styles.text}>{title}</Text>
                                 </LinearGradient>
                             </TouchableOpacity>
                         )

@@ -25,12 +25,12 @@ export default function SelectLocation() {
             const month = currentDate.getMonth() + 1
             const year = currentDate.getFullYear()
             const result = await getListLocation(month, year)
-            const locations: TitemLocation[] = result.data.map((item: any) => {
+            const locations: TitemLocation[] = result.data.map((item: TitemLocation) => {
                 return {
                     id: item.id,
-                    name: item.title,
-                    position: item.pos,
-                    count_item: item.countItem,
+                    title: item.title,
+                    position: item.position,
+                    count_item: item.count_item,
 
                 }
             })
@@ -44,8 +44,8 @@ export default function SelectLocation() {
             <ScrollView fadingEdgeLength={2} horizontal={true} showsHorizontalScrollIndicator={true} style={styles.row}>
                 {
                     stateLocations.map((item: TitemLocation) => (
-                        <Button id={item.id} name={item.name} position={item.position} count_item={item.count_item} key={item.id} handlePress={changeLocation}>
-                            {item.name}
+                        <Button id={item.id} title={item.title} position={item.position} count_item={item.count_item} key={item.id} handlePress={changeLocation}>
+                            {item.title}
                         </Button>
                     ))
                 }
@@ -54,12 +54,12 @@ export default function SelectLocation() {
     )
 }
 function Button(props: propsButton) {
-    const { id, name, position, count_item, children, handlePress } = props
+    const { id, title, position, count_item, children, handlePress } = props
     const [location] = useStateLocation()
     const isSelected = location.id === id
     const handleChangeLocation = () => {
         if (!!handlePress) {
-            handlePress({ id, position, name, count_item })
+            handlePress({ id, position, title, count_item })
         }
     }
     return (

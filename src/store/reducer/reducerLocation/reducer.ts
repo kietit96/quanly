@@ -1,7 +1,7 @@
 import { ActionTypes } from "./actionType"
 
 export type TitemLocation = {
-    name: string,
+    title: string,
     id: number,
     position: number,
     count_item: number,
@@ -12,7 +12,7 @@ export type TactionType = {
 }
 
 export const initialLocation: TitemLocation = {
-    name: 'tất cả',
+    title: 'tất cả',
     id: -1,
     position: -1,
     count_item: 1,
@@ -22,7 +22,7 @@ const reducerLocation = (state = initialLocation, action: TactionType): TitemLoc
         case ActionTypes.SET_LOCATION:
             return {
                 ...state,
-                name: action.payload.name,
+                title: action.payload.name,
                 id: action.payload.id,
                 position: action.payload.position,
             }
