@@ -2,7 +2,7 @@ import months from '@/constants/months';
 import years from '@/constants/years';
 import useStateDate from '@/hooks/useStateDate';
 import { nextMonth, prevMonth, setMonth, setYear } from '@/store/redux/ReduxDate/slice';
-import ButtonArrow from '@comp/Buttons';
+import ButtonArrow from '@comp/Buttons/Arrow';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Picker } from '@react-native-picker/picker';
 import { StyleSheet, Text, View } from 'react-native';

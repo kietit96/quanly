@@ -1,9 +1,12 @@
+import Color from "@/constants/color"
 import useStateDate from "@/hooks/useStateDate"
 import useStateLocation from "@/hooks/useStateLocation"
 import fetchRequest from "@/services/requestOrigin"
 import { TitemLocation } from "@/store/reducer/reducerLocation/reducer"
 import { useEffect, useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
+import { FlatList } from "react-native-gesture-handler"
+import ItemCompany from "./ItemCompany"
 type Tdata = {
     stateTimeDate: number
     location: TitemLocation
@@ -35,7 +38,12 @@ export default function Location() {
     }, [location])
     return (
         <View style={styles.container}>
-            <Text>{JSON.stringify(listCompany)}</Text>
+            <Text style={styles.titleQuan}>{location.title}</Text>
+            <FlatList
+                data={listCompany}
+                renderItem={({ item }: any) => <ItemCompany company={item.company} />}
+                keyExtractor={(item: any) => item.company.id.toString()}
+            />
         </View>
     )
 }
@@ -43,7 +51,20 @@ export default function Location() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: '95%',
+        marginHorizontal: 'auto',
         paddingHorizontal: 10,
         backgroundColor: '#f2f2f2',
+    },
+    titleQuan: {
+        marginVertical: 15,
+        alignSelf: 'flex-start',
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#FFF',
+        padding: 5,
+        borderRadius: 5,
+        backgroundColor: Color.primary
     }
 })

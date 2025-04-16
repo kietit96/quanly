@@ -22,7 +22,7 @@ const reducerLocation = (state = initialLocation, action: TactionType): TitemLoc
         case ActionTypes.SET_LOCATION:
             return {
                 ...state,
-                title: action.payload.name,
+                title: action.payload.title,
                 id: action.payload.id,
                 position: action.payload.position,
             }
