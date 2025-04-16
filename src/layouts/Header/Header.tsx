@@ -1,17 +1,15 @@
 import SelectDate from '@/layouts/SelectDate';
 import React from 'react';
-import { Button, Modal, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
-import Feather from '@expo/vector-icons/Feather';
 import { ThemeHeader } from '@comp/wrapper/WrapperHeader';
-import ModalMessage from '../Modals/ModalMessage';
 import ModalAbsent from '../Modals/ModalAbsent';
+import ModalMessage from '../Modals/ModalMessage';
 import ModalNotification from '../Modals/ModalNotification';
 import ModalSettings from '../Modals/ModalSettings';
 export default function Header() {
-  const [isShowModal, setIsShowModal] = React.useState(false);
   return (
     <ThemeHeader>
       <SafeAreaView style={styles.backgroundHeader}>
