@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { FlatList } from "react-native-gesture-handler"
 import ItemCompany from "./ItemCompany"
+import Loading from "@comp/Loading/Loading"
 type Tdata = {
     stateTimeDate: number
     location: TitemLocation
@@ -15,12 +16,14 @@ export default function Location() {
     const [location, dispatch] = useStateLocation()
     const [stateTimeDate, dispatchTimeDate] = useStateDate<number>()
     const [listCompany, setListCompany] = useState([])
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         const data = {
             stateTimeDate,
             location
         }
         const loadListCompany = async (data: Tdata) => {
+            setLoading(true)
             const date = new Date(stateTimeDate)
             const year = date.getFullYear()
             const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
@@ -33,18 +36,21 @@ export default function Location() {
                 body: formData
             })
             setListCompany(result.data)
+            setLoading(false)
         }
         loadListCompany(data)
     }, [location])
     return (
-        <View style={styles.container}>
-            <Text style={styles.titleQuan}>{location.title}</Text>
-            <FlatList
-                data={listCompany}
-                renderItem={({ item }: any) => <ItemCompany company={item.company} />}
-                keyExtractor={(item: any) => item.company.id.toString()}
-            />
-        </View>
+        loading ? <Loading /> :
+            <View style={styles.container}>
+                <Text style={styles.titleQuan}>{location.title}</Text>
+                <FlatList
+                    data={listCompany}
+                    renderItem={({ item }: any) => <ItemCompany company={item.company} />}
+                    keyExtractor={(item: any) => item.company.id.toString()}
+                />
+            </View>
+
     )
 }
 

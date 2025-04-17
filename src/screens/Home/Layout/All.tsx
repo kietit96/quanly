@@ -1,13 +1,13 @@
-import Color from "@/constants/color";
 import gradients, { Tcolors } from "@/constants/gradient";
 import useStateDate from "@/hooks/useStateDate";
 import useStateLocation from "@/hooks/useStateLocation";
 import { getListLocation } from "@/services/getListLocation";
 import { changeLocationAction } from "@/store/reducer/reducerLocation/action";
 import { TitemLocation } from "@/store/reducer/reducerLocation/reducer";
+import Loading from "@comp/Loading/Loading";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLayoutEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 export default function All() {
     const [stateLocations, setStateLocations] = useState<TitemLocation[]>([])
     const [currentTimeDate, dispatch] = useStateDate<number>()
@@ -37,9 +37,7 @@ export default function All() {
     return (
         isLoading
             ?
-            <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color={Color.primary} />
-            </View>
+            <Loading />
             :
             <View style={styles.container}>
                 <FlatList

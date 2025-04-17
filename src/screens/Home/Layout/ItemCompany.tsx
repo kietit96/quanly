@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Button } from 'react-native'
 import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import Color from '@/constants/color'
+import ItemNV from './ItemNV'
 
 type Tprops = {
     company: {
@@ -24,6 +25,7 @@ export default function ItemCompany(props: Tprops) {
                 <Button color={Color.primary} title='Thêm Công Ty' />
             </View>
             <Text style={styles.address}>{company.address}</Text>
+            <ItemNV />
         </View>
     )
 }
