@@ -14,17 +14,17 @@ type Tdata = {
 }
 export default function Location() {
     const [location, dispatch] = useStateLocation()
-    const [stateTimeDate, dispatchTimeDate] = useStateDate<number>()
+    const [stateTimeDate, dispatchTimeDate] = useStateDate()
     const [listCompany, setListCompany] = useState([])
     const [loading, setLoading] = useState(false)
     useEffect(() => {
         const data = {
-            stateTimeDate,
+            stateTimeDate: stateTimeDate.date,
             location
         }
         const loadListCompany = async (data: Tdata) => {
             setLoading(true)
-            const date = new Date(stateTimeDate)
+            const date = new Date(stateTimeDate.date)
             const year = date.getFullYear()
             const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
             const formData = new FormData()
@@ -39,12 +39,13 @@ export default function Location() {
             setLoading(false)
         }
         loadListCompany(data)
-    }, [location])
+    }, [location, stateTimeDate])
     return (
         loading ? <Loading /> :
             <View style={styles.container}>
                 <Text style={styles.titleQuan}>{location.title}</Text>
                 <FlatList
+                    style={{ marginBottom: 20 }}
                     data={listCompany}
                     renderItem={({ item }: any) => <ItemCompany company={item.company} />}
                     keyExtractor={(item: any) => item.company.id.toString()}

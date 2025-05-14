@@ -1,7 +1,13 @@
 export type Tchildren = {
     children: React.ReactNode
 }
-export type TMonthYear = {
+
+export type TMonth = {
+    value: string,
+    label: string
+}
+
+export type TYear = {
     value: number,
     label: string
 }

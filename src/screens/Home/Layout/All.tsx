@@ -10,8 +10,8 @@ import { useLayoutEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 export default function All() {
     const [stateLocations, setStateLocations] = useState<TitemLocation[]>([])
-    const [currentTimeDate, dispatch] = useStateDate<number>()
-    const currentDate = new Date(currentTimeDate)
+    const [currentTimeDate, dispatch] = useStateDate()
+    const currentDate = new Date(currentTimeDate.date)
     const [isLoading, setLoading] = useState<boolean>(false)
     const [location, dispatchLocation] = useStateLocation()
     useLayoutEffect(() => {

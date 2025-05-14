@@ -13,10 +13,10 @@ interface propsButton extends Tchildren, TitemLocation {
 }
 
 export default function SelectLocation() {
-    const [currentTimeDate, dispatch] = useStateDate<number>()
+    const [currentTimeDate, dispatch] = useStateDate()
     const [stateLocations, setStateLocations] = useState<TitemLocation[]>([initialLocation])
     const [location, dispatchLocation] = useStateLocation()
-    const currentDate = new Date(currentTimeDate)
+    const currentDate = new Date(currentTimeDate.date)
     const changeLocation = (location: TitemLocation) => {
         dispatchLocation(changeLocationAction(location))
     }

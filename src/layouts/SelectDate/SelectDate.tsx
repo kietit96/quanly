@@ -5,19 +5,19 @@ import { nextMonth, prevMonth, setMonth, setYear } from '@/store/redux/ReduxDate
 import ButtonArrow from '@comp/Buttons/Arrow';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Picker } from '@react-native-picker/picker';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 export default function SelectDate() {
-    const [dateTimeState, dispatch] = useStateDate<number>()
-    const dateState = new Date(dateTimeState)
+    const [dateTimeState, dispatch] = useStateDate()
+    const dateState = new Date(dateTimeState.date)
     const setPreviousDate = () => {
         dispatch(prevMonth())
     }
     const setNextDate = () => {
         dispatch(nextMonth())
     }
-    const setChangeMonth = (month: number) => {
-        dispatch(setMonth(month))
+    const setChangeMonth = (month: string) => {
+        dispatch(setMonth(+month))
     }
     const setChangeYear = (year: number) => {
         dispatch(setYear(year))
@@ -30,7 +30,7 @@ export default function SelectDate() {
                     <AntDesign name="caretleft" size={24} />
                 </ButtonArrow>
             </View>
-            <Picker style={styles.input} onValueChange={setChangeMonth} selectedValue={dateState.getMonth()}>
+            <Picker style={styles.input} onValueChange={setChangeMonth} selectedValue={dateState.getMonth().toString()}>
                 {months.map(m => <Picker.Item key={m.value} label={m.label} value={m.value} />)}
             </Picker>
             <Picker style={styles.input} onValueChange={setChangeYear} selectedValue={dateState.getFullYear()}>

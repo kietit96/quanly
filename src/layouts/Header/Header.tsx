@@ -1,10 +1,7 @@
 import SelectDate from '@/layouts/SelectDate';
+import { ThemeHeader } from '@comp/wrapper/WrapperHeader';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-
-import { ThemeHeader } from '@comp/wrapper/WrapperHeader';
 import ModalAbsent from '../Modals/ModalAbsent';
 import ModalMessage from '../Modals/ModalMessage';
 import ModalNotification from '../Modals/ModalNotification';
@@ -12,20 +9,18 @@ import ModalSettings from '../Modals/ModalSettings';
 export default function Header() {
   return (
     <ThemeHeader>
-      <SafeAreaView style={styles.backgroundHeader}>
-        <View>
-          <View style={styles.TitleHeader}>
-            <Text style={styles.title}>Chấm công tháng 01/2025</Text>
-          </View>
-          <View style={styles.features}>
-            <ModalMessage />
-            <ModalAbsent />
-            <ModalNotification />
-            <ModalSettings />
-          </View>
+      <View style={styles.backgroundHeader}>
+        <View style={styles.TitleHeader}>
+          <Text style={styles.title}>Chấm công tháng 01/2025</Text>
+        </View>
+        <View style={styles.features}>
+          <ModalMessage />
+          <ModalAbsent />
+          <ModalNotification />
+          <ModalSettings />
         </View>
         <SelectDate />
-      </SafeAreaView>
+      </View>
     </ThemeHeader>
   )
 }

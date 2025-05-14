@@ -4,8 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect } from "react"
 
 export default function GlobalStateDate() {
-    const [stateTimeDate, dispatch] = useStateDate<number>()
-    const stateDate = new Date(stateTimeDate)
+    const [stateTimeDate, dispatch] = useStateDate()
+    const stateDate = new Date(stateTimeDate.date)
     useEffect(() => {
         async function initializeDate() {
             try {

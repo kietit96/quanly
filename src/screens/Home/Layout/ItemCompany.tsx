@@ -11,6 +11,8 @@ type Tprops = {
         address: string,
         phone: string,
         email: string,
+        listNV: any[],
+        listNV2: any[],
     }
 }
 
@@ -25,7 +27,7 @@ export default function ItemCompany(props: Tprops) {
                 <Button color={Color.primary} title='Thêm Công Ty' />
             </View>
             <Text style={styles.address}>{company.address}</Text>
-            <ItemNV />
+            <ItemNV listNV={company.listNV} listNV2={company.listNV2} />
         </View>
     )
 }

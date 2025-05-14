@@ -1,6 +1,6 @@
-import { TMonthYear } from "@/types";
+import { TYear } from "@/types";
 
-const years: TMonthYear[] = [
+const years: TYear[] = [
     { value: 2022, label: '2022' },
     { value: 2023, label: '2023' },
     { value: 2024, label: '2024' },

@@ -1,8 +1,8 @@
+import GlobalLocation from "@/global/GlobalLocation";
 import Footer from "@/layouts/Footer";
 import SelectLocation from "@/layouts/SelectLocation";
+import { default as ThemeContextLocation } from '@/store/context/ContextLocation/theme';
 import { Tchildren } from "@/types";
-import { default as ThemeContextLocation } from '@/store/context/ContextLocation/theme'
-import GlobalLocation from "@/global/GlobalLocation";
 
 export default function WrapperDefault(props: Tchildren) {
     const { children } = props;
