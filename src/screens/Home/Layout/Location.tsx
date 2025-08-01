@@ -3,11 +3,11 @@ import useStateDate from "@/hooks/useStateDate"
 import useStateLocation from "@/hooks/useStateLocation"
 import fetchRequest from "@/services/requestOrigin"
 import { TitemLocation } from "@/store/reducer/reducerLocation/reducer"
+import Loading from "@comp/Loading/Loading"
 import { useEffect, useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { FlatList } from "react-native-gesture-handler"
 import ItemCompany from "./ItemCompany"
-import Loading from "@comp/Loading/Loading"
 type Tdata = {
     stateTimeDate: number
     location: TitemLocation
@@ -17,6 +17,7 @@ export default function Location() {
     const [stateTimeDate, dispatchTimeDate] = useStateDate()
     const [listCompany, setListCompany] = useState([])
     const [loading, setLoading] = useState(false)
+    const seenStaffs = new Set<number>()
     useEffect(() => {
         const data = {
             stateTimeDate: stateTimeDate.date,
@@ -47,11 +48,10 @@ export default function Location() {
                 <FlatList
                     style={{ marginBottom: 20 }}
                     data={listCompany}
-                    renderItem={({ item }: any) => <ItemCompany company={item.company} />}
+                    renderItem={({ item }: any) => <ItemCompany seenStaffs={seenStaffs} company={item.company} />}
                     keyExtractor={(item: any) => item.company.id.toString()}
                 />
             </View>
-
     )
 }
 

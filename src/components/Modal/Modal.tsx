@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         margin: 20,
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         borderRadius: 20,
-        padding: 35,
+        padding: 15,
         alignItems: 'center',
     },
     closeButton: {

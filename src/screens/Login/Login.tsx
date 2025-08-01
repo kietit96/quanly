@@ -7,7 +7,7 @@ import InputPassword from '@comp/TextInput/InputPassword'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { memo, use, useEffect, useLayoutEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -21,7 +21,7 @@ interface Iinputform {
 
 type TnavigationProps = DrawerNavigationProp<RootDrawerParamList, 'Home'>
 
-export default function Login() {
+function Login() {
   const navigator = useNavigation<TnavigationProps>()
   const [user, dispatch] = useStateUser()
   const schema = yup.object().shape({
@@ -36,10 +36,8 @@ export default function Login() {
     resolver: yupResolver(schema),
   })
   const onSubmit = async (data: Iinputform) => {
-    const result = await LoginAuth(data.username, data.password)
-    if (result === null) return
-    const user: Iinputform = result.user
-    dispatch(loginAsync({ username: user.username, password: user.password }))
+    const { username, password } = data
+    dispatch(loginAsync({ username, password }))
   }
   return (
     <View style={styles.backgroundLogin}>
@@ -114,3 +112,5 @@ const styles = StyleSheet.create({
     color: '#FF0000',
   }
 })
+
+export default Login

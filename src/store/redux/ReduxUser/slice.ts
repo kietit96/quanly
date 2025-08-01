@@ -13,22 +13,34 @@ const initialState: Iuser = {
 const slice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(loginAsync.fulfilled, (state, action) => {
-            AsyncStorage.setItem("user", JSON.stringify(action.payload)); // Save user
+    reducers: {
+        logoutUser: (state) => {
             return {
                 ...state,
-                user: action.payload
+                user: null
+            }
+        }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(loginAsync.fulfilled, (state, action) => {
+            if (!action.payload) {
+                return {
+                    ...state,
+                    user: null
+                }
+            }
+            return {
+                ...state,
+                user: action.payload.user
             }
         })
         builder.addCase(checkUser.fulfilled, (state, action) => {
             return {
                 ...state,
-                user: action.payload
+                user: action.payload.user
             }
         })
     }
 })
-
+export const { logoutUser } = slice.actions
 export default slice.reducer

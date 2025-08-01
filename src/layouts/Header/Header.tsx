@@ -6,12 +6,16 @@ import ModalAbsent from '../Modals/ModalAbsent';
 import ModalMessage from '../Modals/ModalMessage';
 import ModalNotification from '../Modals/ModalNotification';
 import ModalSettings from '../Modals/ModalSettings';
+import useStateDate from '@/hooks/useStateDate';
 export default function Header() {
+  const [dateTimeState, dispatch] = useStateDate()
+  const date = new Date(dateTimeState.date)
+  const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
   return (
     <ThemeHeader>
       <View style={styles.backgroundHeader}>
         <View style={styles.TitleHeader}>
-          <Text style={styles.title}>Chấm công tháng 01/2025</Text>
+          <Text style={styles.title}>Chấm công tháng {month}/2025</Text>
         </View>
         <View style={styles.features}>
           <ModalMessage />

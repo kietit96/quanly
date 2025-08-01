@@ -5,7 +5,7 @@ import { TProps } from './type';
 import { useController } from 'react-hook-form';
 function InputPassword(props: TProps) {
     const { style, placeholderColor = '#a1a1a1', placeholder = '', name, control } = props;
-    const { field } = useController({ name, control, defaultValue: '' })
+    const { field } = useController({ name, control })
 
     const [isShow, setIsShow] = useState<boolean>(false)
     const toggleShow = () => {
@@ -15,7 +15,7 @@ function InputPassword(props: TProps) {
         <View style={StyleSheet.flatten([style, styles.container])}>
             <TextInput
                 secureTextEntry={!isShow}
-                style={styles.inputPassword}
+                style={styles.input}
                 placeholder={placeholder}
                 placeholderTextColor={placeholderColor}
                 value={field.value}
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         height: 50,
         paddingRight: 0,
     },
-    inputPassword: {
+    input: {
         flex: 0.85,
     },
     button: {

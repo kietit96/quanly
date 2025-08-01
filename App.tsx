@@ -1,3 +1,4 @@
+import GlobalStateUser from "@/global/GlobalStateUser";
 import AppNavigator from "@/navigation";
 import store from "@/store/redux/store";
 import { StyleSheet } from "react-native";
@@ -8,10 +9,12 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <Provider store={store}>
-        <AppNavigator />
+        <GlobalStateUser>
+          <AppNavigator />
+        </GlobalStateUser>
       </Provider>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({

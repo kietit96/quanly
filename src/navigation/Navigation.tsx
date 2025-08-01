@@ -6,12 +6,12 @@ import { privateRoute, publicRoute } from '@/routes'
 import { RootDrawerParamList } from '@/types'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
-import React, { Fragment } from 'react'
+import React, { Fragment, use, useEffect } from 'react'
 const Drawer = createDrawerNavigator<RootDrawerParamList>()
 export default function AppNavigator() {
-    const [user] = useStateUser()
+    const [user, dispatch] = useStateUser()
     return (
-        <GlobalStateUser>
+        <>
             <GlobalStateDate />
             <NavigationContainer>
                 <Drawer.Navigator>
@@ -40,6 +40,6 @@ export default function AppNavigator() {
                     }
                 </Drawer.Navigator>
             </NavigationContainer>
-        </GlobalStateUser>
+        </>
     )
 }

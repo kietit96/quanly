@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
-import React from 'react'
-import { ScrollView } from 'react-native-gesture-handler'
 import Color from '@/constants/color'
+import React from 'react'
+import { Button, StyleSheet, Text, View } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
+import HeaderSingleNV from './IitemNV/HeaderSingleNV'
 import ItemNV from './ItemNV'
 
-type Tprops = {
+interface Iprops {
+    seenStaffs: Set<number>,
     company: {
         id: number,
         title: string,
@@ -16,8 +18,8 @@ type Tprops = {
     }
 }
 
-export default function ItemCompany(props: Tprops) {
-    const { company } = props
+export default function ItemCompany(props: Iprops) {
+    const { company, seenStaffs } = props
     return (
         <View style={styles.container}>
             <View style={styles.upper}>
@@ -27,7 +29,9 @@ export default function ItemCompany(props: Tprops) {
                 <Button color={Color.primary} title='Thêm Công Ty' />
             </View>
             <Text style={styles.address}>{company.address}</Text>
-            <ItemNV listNV={company.listNV} listNV2={company.listNV2} />
+            <ItemNV seenStaffs={seenStaffs} listNV={company.listNV} listNV2={company.listNV2}>
+                <HeaderSingleNV />
+            </ItemNV>
         </View>
     )
 }

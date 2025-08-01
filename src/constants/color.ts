@@ -7,6 +7,9 @@ const Color = {
     green: '#00FF00',
     blue: '#0000FF',
     yellow: '#FFFF00',
+    alert_text: "#ff2000",
+    primary_text: "#007bff",
+    
 }
 
 export default Color;

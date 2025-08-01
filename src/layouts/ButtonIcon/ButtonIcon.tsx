@@ -1,7 +1,7 @@
 import { Tchildren } from '@/types'
 import ModalWrapper from '@comp/Modal/Modal'
-import React, { ReactNode } from 'react'
-import { Modal, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native'
+import { ReactNode } from 'react'
+import { Modal, StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
 interface Iprops extends Tchildren {
     isShow: boolean,
     onChangeShow: () => void | unknown,

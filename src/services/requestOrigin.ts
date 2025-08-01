@@ -9,13 +9,10 @@ type Toptions = {
     }
     body?: FormData,
 }
-const fetchRequest = async (url: string, options: Toptions) => {
+const fetchRequest = async (url: string, options: Toptions = { method: 'GET' }) => {
     const response = await fetch(`${initialUrl}${url}`, options)
     const result = await response.json()
     try {
-        if (!response.ok) {
-            throw new CatchError('Network response was not ok')
-        }
         if (response.status !== 200) {
             throw new CatchError(result.message, result.sql)
         }

@@ -14,11 +14,15 @@ export default function GlobalStateUser(props: Tchildren) {
         const checkLogin = async () => {
             try {
                 const storeUser = await AsyncStorage.getItem("user")
-                if (storeUser && storeUser !== '') {
-                    const parsedUser = JSON.parse(storeUser)
-                    await dispatch(checkUser(parsedUser.id))
+                if (user) {
+                    if ((!storeUser || storeUser === '')) {
+                        await AsyncStorage.setItem("user", JSON.stringify(user))
+                    }
                 } else {
-                    await AsyncStorage.setItem("user", '')
+                    if (storeUser && storeUser !== '') {
+                        const parsedUser = JSON.parse(storeUser)
+                        await dispatch(checkUser(parsedUser.id))
+                    }
                 }
             } catch (error) {
                 console.log(error)
@@ -26,7 +30,7 @@ export default function GlobalStateUser(props: Tchildren) {
             setIsLoading(false)
         }
         checkLogin()
-    }, [dispatch])
+    }, [user])
     return isLoading ? <LoadingPage /> : children
 }
 
