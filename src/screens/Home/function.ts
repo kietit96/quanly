@@ -1,6 +1,9 @@
 type TPriceInfo = {
     [key: string]: number
 }
+export function calculate_chuyencan(luong: number) {
+    return Math.round(luong / 30)
+}
 export function calculate_salary(chucvu: number, real_max_day: number, cong: number, priceInfo: TPriceInfo) {
     if (cong === 0) {
         return {

@@ -1,6 +1,6 @@
 import Color from '@/constants/color'
 import ModalWrapper from '@comp/Modal/Modal'
-import { Children, useState } from 'react'
+import { Children, memo, useState } from 'react'
 import { Modal } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { View, Text, StyleSheet } from 'react-native'
@@ -38,7 +38,7 @@ function ModalCell(props: { children?: React.ReactNode } & ICellProps) {
 
   )
 }
-export default function Cell(props: { children?: React.ReactNode } & Iprops) {
+function Cell(props: { children?: React.ReactNode } & Iprops) {
   const { title, bold, width, primary, alert, useModal = false, children } = props
   const styleText = primary ? styles.textPrimary : alert ? styles.textAlert : styles.textBasic
   const styleBold = bold ? styles.textBold : {}
@@ -49,7 +49,7 @@ export default function Cell(props: { children?: React.ReactNode } & Iprops) {
     </View>
   )
 }
-
+export default memo(Cell)
 const styles = StyleSheet.create({
   container: {
     padding: 10,

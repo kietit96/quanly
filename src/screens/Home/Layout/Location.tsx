@@ -13,8 +13,8 @@ type Tdata = {
     location: TitemLocation
 }
 export default function Location() {
-    const [location, dispatch] = useStateLocation()
-    const [stateTimeDate, dispatchTimeDate] = useStateDate()
+    const [location] = useStateLocation()
+    const [stateTimeDate] = useStateDate()
     const [listCompany, setListCompany] = useState([])
     const [loading, setLoading] = useState(false)
     const seenStaffs = new Set<number>()

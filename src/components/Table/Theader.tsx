@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 interface Iprops {
@@ -5,7 +6,7 @@ interface Iprops {
     width?: number
     bold?: boolean
 }
-export default function Theader(props: Iprops) {
+function Theader(props: Iprops) {
     const { title, bold, width } = props
     const styleBold = bold ? styles.textBold : {}
     return (
@@ -14,7 +15,7 @@ export default function Theader(props: Iprops) {
         </View>
     )
 }
-
+export default memo(Theader)
 const styles = StyleSheet.create({
     container: {
         padding: 10,

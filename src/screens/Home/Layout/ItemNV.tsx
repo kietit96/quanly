@@ -8,8 +8,8 @@ interface IProps {
     children: React.ReactNode
 }
 
-export default function ItemNV(props: IProps) {
-    const { listNV, listNV2, seenStaffs, children } = props;
+function ItemNV(props: IProps) {
+    const { listNV, listNV2, seenStaffs, children } = props
     return (
         <ScrollView style={{ marginTop: 20 }} horizontal>
             <View style={styles.container}>
@@ -34,7 +34,7 @@ export default function ItemNV(props: IProps) {
         </ScrollView>
     )
 }
-
+export default ItemNV
 const styles = StyleSheet.create({
     container: {
         flex: 1,

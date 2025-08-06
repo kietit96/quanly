@@ -1,12 +1,11 @@
 import GlobalStateDate from '@/global/GlobalStateDate'
-import GlobalStateUser from '@/global/GlobalStateUser'
 import useStateUser from '@/hooks/useStateUser'
 import Header from '@/layouts/Header'
 import { privateRoute, publicRoute } from '@/routes'
 import { RootDrawerParamList } from '@/types'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
-import React, { Fragment, use, useEffect } from 'react'
+import React, { Fragment } from 'react'
 const Drawer = createDrawerNavigator<RootDrawerParamList>()
 export default function AppNavigator() {
     const [user, dispatch] = useStateUser()

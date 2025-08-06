@@ -6,11 +6,11 @@ import { changeLocationAction } from "@/store/reducer/reducerLocation/action";
 import { TitemLocation } from "@/store/reducer/reducerLocation/reducer";
 import Loading from "@comp/Loading/Loading";
 import { LinearGradient } from "expo-linear-gradient";
-import { useLayoutEffect, useState } from "react";
+import { memo, useLayoutEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-export default function All() {
+function All() {
     const [stateLocations, setStateLocations] = useState<TitemLocation[]>([])
-    const [currentTimeDate, dispatch] = useStateDate()
+    const [currentTimeDate] = useStateDate()
     const currentDate = new Date(currentTimeDate.date)
     const [isLoading, setLoading] = useState<boolean>(false)
     const [location, dispatchLocation] = useStateLocation()
@@ -63,7 +63,7 @@ export default function All() {
             </View>
     )
 }
-
+export default memo(All)
 const styles = StyleSheet.create({
     container: {
         padding: 20,

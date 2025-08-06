@@ -98,6 +98,32 @@ const reducerEmployee = (state: TemployeeInfo = initEmployeeInfo, action: Tactio
     switch (action.type) {
         case ActionTypes.SET_VALUETYPE:
             return Object.assign({}, state, action.payload as TinputFormNV)
+        case ActionTypes.SET_CHUYENCAN:
+            return {
+                ...state,
+                checkIfExit: {
+                    ...state.checkIfExit,
+                    tienchuyencan: action.payload
+                }
+            }
+        case ActionTypes.SET_CHAMCONG: {
+            const { date, chamcong } = action.payload
+            const nangxuatlam = JSON.parse(state.checkIfExit.nangxuatlam)
+            const Re_chamcong_nangxuatlam = {
+                ...nangxuatlam,
+                [date]: {
+                    textDate: chamcong.time,
+                    color: chamcong.color
+                }
+            }
+            return {
+                ...state,
+                checkIfExit: {
+                    ...state.checkIfExit,
+                    nangxuatlam: JSON.stringify(Re_chamcong_nangxuatlam),
+                }
+            }
+        }
         case ActionTypes.SET_RESULT: {
             const real_max_day = action.payload.real_max_day as number
             const { chucvu } = state

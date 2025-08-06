@@ -1,4 +1,6 @@
 export enum ActionTypes {
     SET_VALUETYPE = 'SET_VALUETYPE',
     SET_RESULT = 'SET_RESULT',
+    SET_CHUYENCAN = 'SET_CHUYENCAN',
+    SET_CHAMCONG = 'SET_CHAMCONG'
 }

@@ -60,11 +60,18 @@ function Login() {
                 }
               />
               {errors.username && <Text style={styles.errorText}>{errors.username.message}</Text>}
-              <InputPassword
+              <Controller
                 name="password"
                 control={control}
-                style={styles.inputForm}
-                placeholder="Mật khẩu" />
+                render={({ field: { onChange, value, onBlur } }) =>
+                  <InputPassword
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    style={styles.inputForm}
+                    placeholder="Mật khẩu" />
+                }
+              />
               {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
               <TouchableOpacity style={styles.buttonLogin} onPress={handleSubmit(onSubmit)}>
                 <Text style={styles.buttonText}>Đăng nhập</Text>
